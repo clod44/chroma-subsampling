@@ -1,5 +1,18 @@
+
+let testImages = [
+    "https://picsum.photos/id/0/400/300",
+    "0.png",
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpeg"
+];
+
+
 function setup() {
-    //Do not delete this function or p5js won't initialize.
+    //Don't delete this or p5js won't initialize
 }
 
 
@@ -183,4 +196,29 @@ $(document).ready(function () {
     $("#range-subsampling-amount").on("input change", function () {
         $("#input-subsampling-amount").val(this.value);
     });
+
+    $("#range-image-src").on("input change", function () {
+        $("#results").empty();
+        let selectedIndex = parseInt($(this).val()); // Get the selected index from the range input
+        let imgSrc = "";
+        let label = "";
+
+        if (selectedIndex == 0) {
+            testImages[selectedIndex] = getRandomImage();
+            imgSrc = testImages[selectedIndex];
+            label = imgSrc;
+        } else {
+            // Otherwise, use the selected image URL from the array
+            label = testImages[selectedIndex];
+            imgSrc = "./test-images/" + testImages[selectedIndex];
+        }
+
+        $("#img-test-image").attr("src", imgSrc);
+        $("#label-selected-image").text(label); // Corrected selector to update the span text
+    });
+
+    function getRandomImage() {
+        return "https://picsum.photos/id/" + round(random(1, 1000)) + "/400/300";
+    }
+
 });
