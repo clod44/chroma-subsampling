@@ -188,7 +188,7 @@ $(document).ready(function () {
         imgElement.src = URL.createObjectURL(this.files[0]);
     });
     function handleSubsamplingChange() {
-        let subSampling = Math.max(1, Math.min(6, $(this).val()));
+        let subSampling = Math.max(1, $(this).val());
         $("#input-subsampling-amount").val(subSampling);
         $("#range-subsampling-amount").val(subSampling);
     }
@@ -222,7 +222,7 @@ $(document).ready(function () {
 });
 
 class SubsampledImage extends HTMLElement {
-    constructor() {
+    constructor () {
         super();
     }
 
