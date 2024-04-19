@@ -14,45 +14,55 @@
 </head>
 
 <body>
-    <div class="container p-5 d-flex flex-column justify-content-center align-items-center">
-        <div class="d-flex p-3 gap-3">
-            <div>
-                <h3 class="text-nowrap">YCbCr Subsample</h3>
-                <form id="form-subsample" class="d-flex flex-column justify-content-center gap-2">
+    <header class="container text-center position-sticky top-0 z-1 p-2 bg-body">
+        <a href="https://github.com/clod44/chroma-subsampling" class="btn btn-sm btn-outline-info" target="_blank">
+            <strong>clod44</strong>
+            <span>YCbCr Subsample</span>
+        </a>
+    </header>
 
-                    <div class="rounded text-bg-dark p-2 shadow">
-                        <div class="input-group mb-2 flex-nowrap">
-                            <span class="input-group-text">Subsample</span>
-                            <input type="text" class="form-control" id="input-subsampling-amount" required value="10">
-                            <span class="input-group-text">pixels</span>
+    <div class="container row mx-auto">
+        <main class="col-md">
+            <div class="card d-grid gap-1">
+                <h1 class="card-header text-center fs-6">Main Tool</h1>
+                <div class="card-body">
+                    <form id="form-subsample" class="d-grid gap-2">
+                        <div>
+                            <div class="input-group">
+                                <span class="input-group-text">Subsample:</span>
+                                <input class="form-control text-end" type="text" id="input-subsampling-amount" required
+                                    value="3">
+                                <span class="input-group-text">px</span>
+                            </div>
+                            <input id="range-subsampling-amount" type="range" class="form-range" min="1" max="6"
+                                value="3">
                         </div>
-                        <input id="range-subsampling-amount" type="range" class="form-range" min="1" max="6" value="3">
-                    </div>
-                    <div class="rounded text-bg-dark p-2 shadow">
-                        <label class="form-label">Selected image: <span id="label-selected-image">0.png</span></label>
-                        <input id="range-image-src" type="range" class="form-range" min="0" max="7" value="1">
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-outline-primary">Apply</button>
-                </form>
-                <div class="mb-3">
-                    <label for="formFileLg" class="form-label">Upload Custom Image:</label>
-                    <input class="form-control form-control" id="input-custom-image" type="file">
-                </div>
-                <ul id="info" class="list-group">
-
-                </ul>
-                <a href="https://github.com/clod44/chroma-subsampling" class="btn btn-sm btn-outline-info"
-                    target="_blank">github - clod44</a>
-            </div>
-            <div class="d-flex flex-column-reverse gap-2 justify-content-center flex-grow-1">
-                <img id="img-test-image" src="./test-images/0.png" class="rounded shadow w-100">
-                <span>Original image:</span>
-                <div id="results">
-
+                        <div>
+                            <div>
+                                <label class="form-label">Selected image: <span
+                                        id="label-selected-image">0.png</span></label>
+                                <div class="ratio ratio-1x1">
+                                    <img id="img-test-image" src="./test-images/0.png"
+                                        class="object-fit-cover border rounded">
+                                </div>
+                                <input id="range-image-src" type="range" class="form-range" min="0" max="7" value="1">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Upload Custom Image:</label>
+                            <input class="form-control" id="input-custom-image" type="file">
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-outline-primary">Apply</button>
+                    </form>
                 </div>
             </div>
-        </div>
+        </main>
 
+        <aside class="col">
+            <h1 class="card-header text-center fs-6 py-2 px-3">Image Output</h1>
+            <div id="results" class="row"> </div>
+            <div> <ul id="info" class="list-group"> </ul> </div>
+        </aside>
     </div>
     <!--p5js-->
     <script src="./lib/p5.min.js"></script>
