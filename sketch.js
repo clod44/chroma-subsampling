@@ -141,19 +141,13 @@ $(document).ready(function () {
 
 
     function displaySubsampledImage(subsampledImg, type, subsamplingAmount) {
-        let newImg = $("<img>");
-        newImg.attr("src", subsampledImg.canvas.toDataURL());
+        const newSubsampledImage = document.createElement('subsampled-image');
 
-        let imgElement = $("#img-test-image");
-        if (imgElement.length > 0) {
-            let classes = imgElement.attr("class");
-            if (classes) {
-                newImg.addClass(classes);
-            }
-        }
+        newSubsampledImage.setAttribute('subsampled-img', subsampledImg.canvas.toDataURL());
+        newSubsampledImage.setAttribute('type', type);
+        newSubsampledImage.setAttribute('subsampling-amount', subsamplingAmount);
 
-        $("#results").append("<span>" + type + " subsampled " + subsamplingAmount + " pixels:</span>");
-        $("#results").append(newImg);
+        document.querySelector('#results').appendChild(newSubsampledImage);
     }
 
 
@@ -193,9 +187,13 @@ $(document).ready(function () {
         let imgElement = $("#img-test-image")[0];
         imgElement.src = URL.createObjectURL(this.files[0]);
     });
-    $("#range-subsampling-amount").on("input change", function () {
-        $("#input-subsampling-amount").val(this.value);
-    });
+    function handleSubsamplingChange() {
+        let subSampling = Math.max(1, Math.min(6, $(this).val()));
+        $("#input-subsampling-amount").val(subSampling);
+        $("#range-subsampling-amount").val(subSampling);
+    }
+    $("#range-subsampling-amount, #input-subsampling-amount").on("input change", handleSubsamplingChange);
+
 
     $("#range-image-src").on("input change", function () {
         $("#results").empty();
@@ -222,3 +220,34 @@ $(document).ready(function () {
     }
 
 });
+
+class SubsampledImage extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const subsampledImg = this.getAttribute('subsampled-img');
+        const type = this.getAttribute('type');
+        const subsamplingAmount = this.getAttribute('subsampling-amount');
+        const typeAndSampling = `${type} subsampled ${subsamplingAmount} pixels`;
+
+        const img = document.createElement('img');
+        img.src = subsampledImg;
+        img.alt = typeAndSampling;
+        img.classList.add('img-fluid', 'object-fit-cover', 'rounded');
+
+        const figCaption = document.createElement('figcaption');
+        figCaption.innerText = typeAndSampling;
+        figCaption.classList.add('position-absolute', 'top-0', 'bg-primary', 'text-white', 'p-1', 'mt-2')
+
+        const figure = document.createElement('figure');
+        figure.appendChild(img);
+        figure.appendChild(figCaption);
+        figure.classList.add('position-relative');
+        this.appendChild(figure);
+        this.classList.add('col-sm-6');
+    }
+}
+
+customElements.define('subsampled-image', SubsampledImage);
