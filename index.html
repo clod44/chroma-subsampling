@@ -14,14 +14,7 @@
 </head>
 
 <body>
-    <header class="container text-center position-sticky top-0 z-1 p-2 bg-body">
-        <a href="https://github.com/clod44/chroma-subsampling" class="btn btn-sm btn-outline-info" target="_blank">
-            <strong>clod44</strong>
-            <span>YCbCr Subsample</span>
-        </a>
-    </header>
-
-    <div class="container row mx-auto">
+    <div class="container row mx-auto p-3">
         <main class="col-md">
             <div class="card d-grid gap-1">
                 <h1 class="card-header text-center fs-6">Main Tool</h1>
@@ -56,12 +49,21 @@
                     </form>
                 </div>
             </div>
+            <div class="py-3">
+                <a href="https://github.com/clod44/chroma-subsampling" class="btn btn-sm btn-outline-info"
+                    target="_blank">
+                    <strong>clod44</strong>
+                    <span>YCbCr Subsample</span>
+                </a>
+            </div>
         </main>
 
         <aside class="col">
             <h1 class="card-header text-center fs-6 py-2 px-3">Image Output</h1>
             <div id="results" class="row"> </div>
-            <div> <ul id="info" class="list-group"> </ul> </div>
+            <div>
+                <ul id="info" class="list-group"> </ul>
+            </div>
         </aside>
     </div>
     <!--p5js-->
